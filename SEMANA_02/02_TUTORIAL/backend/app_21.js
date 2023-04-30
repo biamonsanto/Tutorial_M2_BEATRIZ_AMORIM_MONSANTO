@@ -2,7 +2,7 @@ const express = require('express');
 const app = express();
 
 const hostname = '127.0.0.1';
-const port = 3021;
+const port = 3022;
 const sqlite3 = require('sqlite3').verbose();
 const DBPATH = 'projeto.db';
 
@@ -11,12 +11,12 @@ app.use(express.json());
 /* Definição dos endpoints */
 
 // Retorna todos registros de usuários
-app.get('/usuarios', (req, res) => {
+app.get('/', (req, res) => {
 	res.statusCode = 200;
 	res.setHeader('Access-Control-Allow-Origin', '*'); // Isso é importante para evitar o erro de CORS
 
 	var db = new sqlite3.Database(DBPATH); // Abre o banco
-  var sql = 'SELECT matricula, nome, strftime("%d/%m/%Y",data_admissao) AS "data de contratação" FROM usuario ORDER BY nome COLLATE NOCASE';
+  var sql = 'SELECT matricula, nome, strftime("%d/%m/%Y",data_admissao) AS "data de contratação" FROM usuario ORDER BY nome COLLATE NOCASE LIMIT 1,1';
 	db.all(sql, [],  (err, rows ) => {
 		if (err) {
 		    throw err;
