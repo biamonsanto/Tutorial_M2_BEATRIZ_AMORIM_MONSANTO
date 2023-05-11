@@ -4,7 +4,7 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 const sqlite3 = require('sqlite3').verbose();
 const DBPATH = 'data/curriculo.db';
-
+ 
 const hostname = '127.0.0.1';
 const port = 3000;
 const app = express();
@@ -100,4 +100,50 @@ app.get('/removeUsuario', urlencodedParser, (req, res) => {
 
 app.listen(port, hostname, () => {
   console.log(`Servidor rodando em http://${hostname}:${port}/`);
+});
+
+// atvd ponderadasemana3
+
+
+app.get('/personalidade', (req, res) => {
+	res.statusCode = 200;
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	var db = new sqlite3.Database(DBPATH); // Abre o banco
+	var sql = 'SELECT * FROM tb_info_personalidade ORDER BY id_tb_info_personalidade COLLATE NOCASE';
+		db.all(sql, [],  (err, rows ) => {
+			if (err) {
+				throw err;
+			}
+			res.json(rows);
+		});
+		db.close(); // Fecha o banco
+});
+
+app.get('/habilidades', (req, res) => {
+	res.statusCode = 200;
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	var db = new sqlite3.Database(DBPATH); // Abre o banco
+	var sql = 'SELECT * FROM tb_info_habilidade ORDER BY id_info_habilidade COLLATE NOCASE';
+		db.all(sql, [],  (err, rows ) => {
+			if (err) {
+				throw err;
+			}
+			res.json(rows);
+		});
+		db.close(); // Fecha o banco
+});
+
+
+app.get('/sobreMim', (req, res) => {
+	res.statusCode = 200;
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	var db = new sqlite3.Database(DBPATH); // Abre o banco
+	var sql = 'SELECT * FROM tb_info_sobre_mim ORDER BY id_info_sobre_mim COLLATE NOCASE';
+		db.all(sql, [],  (err, rows ) => {
+			if (err) {
+				throw err;
+			}
+			res.json(rows);
+		});
+		db.close(); // Fecha o banco
 });
