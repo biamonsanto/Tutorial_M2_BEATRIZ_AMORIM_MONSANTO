@@ -14,4 +14,13 @@
     window.onscroll = () => {
         navbar.classList.remove('active');
     }
-     
+    //primeira jquery
+    $(document).ready(function() {
+        $('.home-text').css('color', 'purple');
+      });    
+ 
+    //segunda jquery
+    $('a.btn').click(function() {
+        window.location.href = "beatrizcurriculo.pdf";
+    });
+    
